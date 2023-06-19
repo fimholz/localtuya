@@ -839,6 +839,8 @@ class TuyaProtocol(asyncio.Protocol, ContextualLogger):
             dp_index(int):   dps index to set
             value: new value for the dps index
         """
+        if isinstance(value,str):
+          value = str(value.replace('"', '').replace("'","")) # this is fun '"'"'"
         return await self.exchange(CONTROL, {str(dp_index): value})
 
     async def set_dps(self, dps):
